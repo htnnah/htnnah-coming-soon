@@ -1871,7 +1871,7 @@
   html.on-arch #mood-bg, html.on-arch #mood-fx, html.on-quarters #mood-bg, html.on-quarters #mood-fx { display: none !important; }
   html.on-arch::after, html.on-quarters::after { content: ""; position: fixed; inset: 0; z-index: 4; pointer-events: none; background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, .72) 100%), radial-gradient(circle at 16% 10%, rgba(255, 170, 60, .2), transparent 38%), radial-gradient(circle at 86% 18%, rgba(255, 170, 60, .15), transparent 34%); animation: huntFlick 3.6s ease-in-out infinite; }
   @keyframes huntFlick { 0%, 100% { opacity: .9; } 18% { opacity: 1; } 34% { opacity: .82; } 52% { opacity: 1; } 70% { opacity: .88; } }
-  .ar, .q, .ar-locked { color: #ecdcb0; font-family: "Special Elite", "Courier New", monospace; text-align: center; }
+  section.ar-room, .q, .ar-locked { color: #ecdcb0; font-family: "Special Elite", "Courier New", monospace; text-align: center; }
   .ar-locked { padding-top: 12vh; } .ar-locked h1 { font-family: "IM Fell English SC", Georgia, serif; font-weight: 400; color: #d8b45a; } .ar a, .q a, .ar-locked a { color: #d8b45a; }
   .ar-eyebrow { margin: 0; font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: #b99350; }
   .ar-title, .q-title { margin: 6px 0 22px; font-family: "IM Fell English SC", "Cormorant Garamond", Georgia, serif; font-weight: 400; font-size: clamp(2rem, 6vw, 3.4rem); letter-spacing: .06em; color: #e2bd62; text-shadow: 0 2px 0 #3a1a08, 0 0 24px rgba(255, 180, 70, .4); }
@@ -6569,6 +6569,7 @@ const HUNT = (() => {
   };
   new MutationObserver(() => { clearTimeout(afterT); afterT = setTimeout(after, 90); }).observe(document.getElementById('view'), { childList: true });
   addEventListener('hashchange', () => { clearTimeout(afterT); afterT = setTimeout(after, 140); });
+  document.addEventListener('playtab', () => { clearTimeout(afterT); afterT = setTimeout(after, 60); });
   let fonts = false; const loadFonts = () => { if (fonts) return; fonts = true; const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Special+Elite&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap'; document.head.appendChild(l); };
 
   /* ===== the forbidden archives and the captain's quarters ===== */
@@ -6629,7 +6630,7 @@ const HUNT = (() => {
   ];
   const folderHtml = f => `<button type="button" class="ar-folder${st.folders.includes(f.k) ? ' seen' : ''}" data-f="${f.k}"><span class="ar-tab">${f.tab}</span><b>${f.k === 'redacted' ? '<span class="ar-bar" style="width:8ch"></span> <span class="ar-bar" style="width:6ch"></span>' : f.title}</b>${f.sub ? `<small>${f.sub}</small>` : ''}<i class="ar-stamp">${st.folders.includes(f.k) ? 'reviewed' : 'unread'}</i></button>`;
   const archivesHtml = () => `
-    <section class="ar">
+    <section class="ar-room">
       <div class="ar-head"><p class="ar-eyebrow">Access level: extremely nosy</p><h1 class="ar-title">The Forbidden Archives</h1></div>
       <article class="ar-letter">
         <p class="ar-hello">Welcome to the forbidden archives.</p>
